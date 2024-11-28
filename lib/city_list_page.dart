@@ -1,24 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/city_detail_page.dart';
 
-class CityListPage extends StatefulWidget {
+class CityListPage extends StatelessWidget {
   const CityListPage({
     super.key,
   });
-
-  @override
-  State<CityListPage> createState() => _CityListPageState();
-}
-
-class _CityListPageState extends State<CityListPage> {
-  // ignore: prefer_typing_uninitialized_variables
-  late Future<void> _future;
-
-  @override
-  void initState() {
-    super.initState();
-    _future = Future.delayed(const Duration(seconds: 3));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +22,26 @@ class _CityListPageState extends State<CityListPage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('市区町村一覧'),
+      appBar: AppBar(title: const Text('市区町村一覧')),
+      body: ListView(
+        children: [
+          for (final city in cities)
+            ListTile(
+              title: Text(city),
+              subtitle: const Text('政令指定都市'),
+              trailing: const Icon(Icons.navigate_next),
+              onTap: () {
+                //詳細画面に遷移する
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => CityDetailPage(
+                            city: city,
+                          )),
+                );
+              },
+            ),
+        ],
       ),
-      body: FutureBuilder<void>(
-        future: Future.delayed(const Duration(seconds: 3)),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            // 非同期処理が完了（3秒後）したこと示す状態です。
-            case ConnectionState.done:
-              // 元々のListViewを移動させただけです
-              return ListView(
-                children: [
-                  for (final city in cities)
-                    ListTile(
-                      title: Text(city),
-                      subtitle: const Text('政令指定都市'),
-                      trailing: const Icon(Icons.navigate_next),
-                      onTap: () {
-                        Navigator.of(context).push<void>(
-                          MaterialPageRoute(
-                            builder: (context) => CityDetailPage(city: city),
-                          ),
-                        );
-                      },
-                    ),
-                ],
-              );
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-          }
-          // 非同期処理が完了するまではインジケータを表示します。
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-    );
+      );
   }
 }
