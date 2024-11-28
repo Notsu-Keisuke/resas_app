@@ -33,7 +33,10 @@ class CityListPage extends StatelessWidget {
               onTap: () {
                 //詳細画面に遷移する
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const CityDetailPage()),
+                  MaterialPageRoute(
+                      builder: (context) => CityDetailPage(
+                            city: city,
+                          )),
                 );
               },
             ),
@@ -42,4 +45,3 @@ class CityListPage extends StatelessWidget {
     );
   }
 }
-
