@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/city_detail_page.dart';
 
-class CityListPage extends StatelessWidget {
+class CityListPage extends StatefulWidget {
   const CityListPage({
     super.key,
   });
+
+  @override
+  State<CityListPage> createState() => _CityListPageState();
+}
+
+class _CityListPageState extends State<CityListPage> {
+  // ignore: prefer_typing_uninitialized_variables
+  var future;
+
+  @override
+  void initState() {
+    super.initState();
+    future = Future.delayed(const Duration(seconds: 3));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +38,7 @@ class CityListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('市区町村一覧')),
       body: FutureBuilder<Object>(
-          future: Future.delayed(const Duration(seconds: 3)),
+          future: future,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
