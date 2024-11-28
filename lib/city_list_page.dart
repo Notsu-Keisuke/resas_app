@@ -7,7 +7,18 @@ class CityListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const cities = ['札幌市', '横浜市', '川崎市'];
+    const cities = [
+      '札幌市',
+      '横浜市',
+      '川崎市',
+      '名古屋市',
+      '京都市',
+      '大阪市',
+      '神戸市',
+      '福岡市',
+      '北九州市',
+      '広島市',
+    ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('市区町村一覧')),
